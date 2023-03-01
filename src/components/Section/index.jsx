@@ -1,11 +1,11 @@
 import { Container } from "./styles";
 
 
-export function Section({ title, children, ...rest }){
+export function Section({ title, children, classSection, ...rest }){
 
     return (
-        <Container>
-            <h2>{title}</h2>
+        <Container className={classSection}>
+            <div className="title">{title}</div>
             <div {...rest}>{children}</div>
         </Container>
     )

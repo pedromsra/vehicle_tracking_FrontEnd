@@ -13,7 +13,6 @@ export function Chart ({data, ...rest}){
     const chartData = data.map(dat => {
         count++
         percentData = Number(dat.quantity)/sumData
-        console.log(percentData)
         return{...dat, keyCount: count, percent: percentData}
     })
 
@@ -21,7 +20,6 @@ export function Chart ({data, ...rest}){
 
     let concater = ""
     gridTemplate.forEach(grid => {
-        console.log(grid)
         concater = concater.concat(grid + " ")
     })
 

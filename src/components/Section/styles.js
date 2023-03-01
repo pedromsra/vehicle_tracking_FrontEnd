@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.section`
 
-    > h2 {
+    .title {
         font-family: 'Roboto';
         font-style: normal;
         font-weight: 500;

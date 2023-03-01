@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    width: 20.8rem;
     display: flex;
     align-items: center;
 
@@ -12,8 +11,8 @@ export const Container = styled.div`
     border: .1rem solid ${({theme}) => theme.COLORS.input_border};
 
     > input {
-        height: 4rem;
         width: 100%;
+        height: 4rem;
         padding: 1.2rem 1.6rem;
 
         color: ${({theme}) => theme.COLORS.dark_300};

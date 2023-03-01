@@ -1,38 +1,31 @@
-import { Container, Where } from "./styles";
+import { Container } from "./styles";
 
 import theme from "../../styles/theme"
 
 import { Header } from "../../components/Header";
 import { Section } from "../../components/Section";
 import { Indicador } from "../../components/Indicador";
-import {Chart} from "../../components/Chart"
-import {Input} from "../../components/Input"
+import {Chart} from "../../components/Chart";
+import {Input} from "../../components/Input";
+import {Where} from "../../components/Where";
 
-import Clients from "../../assets/clients.svg"
-import Vehicle from "../../assets/vehicle.svg"
-import Users from "../../assets/users.svg"
-import Equipment from "../../assets/equipment.svg"
-import Home from "../../assets/home.svg"
-import ArrowRight from "../../assets/arrowRight.svg"
-import ArrowUp from "../../assets/arrowUp.svg"
-import ArrowDown from "../../assets/arrowDown.svg"
-import Find from "../../assets/find.svg"
-import Alert from "../../assets/alert.svg"
-import Clock from "../../assets/clock.svg"
-import Date from "../../assets/date.svg"
+import Clients from "../../assets/clients.svg";
+import Vehicle from "../../assets/vehicle.svg";
+import Users from "../../assets/users.svg";
+import Equipment from "../../assets/equipment.svg";
+import ArrowUp from "../../assets/arrowUp.svg";
+import ArrowDown from "../../assets/arrowDown.svg";
+import Find from "../../assets/find.svg";
+import Alert from "../../assets/alert.svg";
+import Clock from "../../assets/clock.svg";
+import Date from "../../assets/date.svg";
 
-export function Dashboard(){
+export function StartDashboard(){
     return (
         <Container>
             <Header />
-            <Where >
-                <div className="where">
-                    <span><img src={Home} alt="icone home" /></span>
-                    <span><img src={ArrowRight} alt="seta para direita" /></span>
-                    <p>Dashboard</p>
-                </div>
-                <div className="borderBottom" />
-            </Where>
+
+            <Where title="Dashboard" />
             <main>
                 <div className="dashboard" >
                     <Section title="Indicadores" className="indicators" >
@@ -102,51 +95,54 @@ export function Dashboard(){
                                 <div className="Tab1" style={{color: theme.COLORS.secondary, borderBottom: "2px solid "+theme.COLORS.secondary}} >Veículos</div>
                                 <div className="Tab2" style={{color: theme.COLORS.light_500, borderBottom: "2px solid "+theme.COLORS.light_100}} >Alertas</div>
                             </div>
-                            <Input icon={Find} placeholder="Pesquisar" />
+                            <Input icon={Find} inputWidth="20.8rem" placeholder="Pesquisar" />
                         </div>
-                        <table className="vehicles" cellspacing="0" >
-                            <tr>
-                                <td><div>Placa<span>Apelido</span></div></td>
-                                <td><div>Categoria<span>Modelo</span></div></td>
-                                <td><a>Mais informações</a></td>
-                            </tr>
-                            <tr>
-                                <td><div>Placa<span>Apelido</span></div></td>
-                                <td><div>Categoria<span>Modelo</span></div></td>
-                                <td><a>Mais informações</a></td>
-                            </tr><tr>
-                                <td><div>Placa<span>Apelido</span></div></td>
-                                <td><div>Categoria<span>Modelo</span></div></td>
-                                <td><a>Mais informações</a></td>
-                            </tr>
-                            <tr>
-                                <td><div>Placa<span>Apelido</span></div></td>
-                                <td><div>Categoria<span>Modelo</span></div></td>
-                                <td><a>Mais informações</a></td>
-                            </tr>
-                            <tr>
-                                <td><div>Placa<span>Apelido</span></div></td>
-                                <td><div>Categoria<span>Modelo</span></div></td>
-                                <td><a>Mais informações</a></td>
-                            </tr><tr>
-                                <td><div>Placa<span>Apelido</span></div></td>
-                                <td><div>Categoria<span>Modelo</span></div></td>
-                                <td><a>Mais informações</a></td>
-                            </tr>
-                            <tr>
-                                <td><div>Placa<span>Apelido</span></div></td>
-                                <td><div>Categoria<span>Modelo</span></div></td>
-                                <td><a>Mais informações</a></td>
-                            </tr>
-                            <tr>
-                                <td><div>Placa<span>Apelido</span></div></td>
-                                <td><div>Categoria<span>Modelo</span></div></td>
-                                <td><a>Mais informações</a></td>
-                            </tr><tr>
-                                <td><div>Placa<span>Apelido</span></div></td>
-                                <td><div>Categoria<span>Modelo</span></div></td>
-                                <td><a>Mais informações</a></td>
-                            </tr>
+                        <table className="vehicles" cellSpacing="0" >
+                            <tbody>
+
+                                <tr>
+                                    <td><div>Placa<span>Apelido</span></div></td>
+                                    <td><div>Categoria<span>Modelo</span></div></td>
+                                    <td><a>Mais informações</a></td>
+                                </tr>
+                                <tr>
+                                    <td><div>Placa<span>Apelido</span></div></td>
+                                    <td><div>Categoria<span>Modelo</span></div></td>
+                                    <td><a>Mais informações</a></td>
+                                </tr><tr>
+                                    <td><div>Placa<span>Apelido</span></div></td>
+                                    <td><div>Categoria<span>Modelo</span></div></td>
+                                    <td><a>Mais informações</a></td>
+                                </tr>
+                                <tr>
+                                    <td><div>Placa<span>Apelido</span></div></td>
+                                    <td><div>Categoria<span>Modelo</span></div></td>
+                                    <td><a>Mais informações</a></td>
+                                </tr>
+                                <tr>
+                                    <td><div>Placa<span>Apelido</span></div></td>
+                                    <td><div>Categoria<span>Modelo</span></div></td>
+                                    <td><a>Mais informações</a></td>
+                                </tr><tr>
+                                    <td><div>Placa<span>Apelido</span></div></td>
+                                    <td><div>Categoria<span>Modelo</span></div></td>
+                                    <td><a>Mais informações</a></td>
+                                </tr>
+                                <tr>
+                                    <td><div>Placa<span>Apelido</span></div></td>
+                                    <td><div>Categoria<span>Modelo</span></div></td>
+                                    <td><a>Mais informações</a></td>
+                                </tr>
+                                <tr>
+                                    <td><div>Placa<span>Apelido</span></div></td>
+                                    <td><div>Categoria<span>Modelo</span></div></td>
+                                    <td><a>Mais informações</a></td>
+                                </tr><tr>
+                                    <td><div>Placa<span>Apelido</span></div></td>
+                                    <td><div>Categoria<span>Modelo</span></div></td>
+                                    <td><a>Mais informações</a></td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                     <div className="tableContainer" style={{display: "none"}}>
@@ -155,7 +151,7 @@ export function Dashboard(){
                                 <div className="Tab1" style={{color: theme.COLORS.light_500, borderBottom: "2px solid "+theme.COLORS.light_100}} >Veículos</div>
                                 <div className="Tab2" style={{color: theme.COLORS.secondary, borderBottom: "2px solid "+theme.COLORS.secondary}} >Alertas</div>
                             </div>
-                            <Input icon={Find} placeholder="Pesquisar" />
+                            <Input icon={Find} inputWidth="20.8rem" placeholder="Pesquisar" />
                         </div>
                         <div className="alerts" >
                             <div className="todayAlert" >
