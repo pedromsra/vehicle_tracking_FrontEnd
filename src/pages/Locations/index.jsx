@@ -5,19 +5,13 @@ import { Where } from "../../components/Where";
 import { Input } from "../../components/Input";
 import { InfoBoxVehicle } from "../../components/InfoBoxVehicle"
 import { InfoBoxVehicleDetails } from "../../components/InfoBoxVehicleDetails"
-import { Section } from "../../components/Section";
-import KmChart from "../../components/DistributedChart";
 
 import Find from "../../assets/find.svg";
 import Car from "../../assets/Car.svg";
 import PinSucess from "../../assets/pinSucess.svg";
-import PinStoped from "../../assets/pinStoped.svg";
-import Origin from "../../assets/origin.svg";
-import Destiny from "../../assets/destiny.svg";
-import Route from "../../assets/route.svg";
 
 
-export function Location(){
+export function Locations(){
     return (
         <Container>
             <Header />
