@@ -1,12 +1,13 @@
 import styled from 'styled-components'
 
 export const Container = styled.button`
+    width: 33.2rem;
     min-width: 16.9rem;
     background-color: ${({theme, isActive}) => isActive ? theme.COLORS.light_100 : "transparent"};
     padding: 1.6rem 1.2rem 1.6rem 1.6rem;
     border: none;
     height: fit-content;
-    border-radius: 1.2rem;
+    border-radius: ${({opened}) => opened ? "1.2rem 1.2rem 0 0" : "1.2rem"};
 
     font-family: 'Roboto';
     font-style: normal;
@@ -52,7 +53,7 @@ export const Container = styled.button`
             
         }
     
-        h2 {
+        .title {
             font-family: 'Roboto';
             font-style: normal;
             font-weight: 500;
@@ -62,7 +63,7 @@ export const Container = styled.button`
             color: ${({theme}) => theme.COLORS.dark_200};
         }
     
-        h3 {
+        .situation {
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -84,7 +85,7 @@ export const Container = styled.button`
             text-align: right;
         }
     
-        p {
+        .description {
             font-family: 'Roboto';
             font-style: normal;
             font-weight: 400;
@@ -100,10 +101,6 @@ export const Container = styled.button`
             display: grid;
             place-items: center;
         }
-    }
-
-    .pin {
-        margin-left: 10.7rem;
     }
 
     &:disabled {
