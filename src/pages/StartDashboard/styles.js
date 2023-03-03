@@ -1,5 +1,16 @@
 import styled from "styled-components";
 
+export const Tab = styled.div`
+    color: ${({theme, isActive}) => isActive ? theme.COLORS.secondary : theme.COLORS.light_500};
+    border-bottom: 2px solid ${({theme, isActive}) => isActive ? theme.COLORS.secondary : theme.COLORS.light_100};
+`
+export const APIMaps = styled.div`
+    display: ${({isActive}) => isActive ? "auto" : "none" };
+        margin-top: 2rem;
+        width: 72.5rem;
+        height: 37.7rem;
+`;
+
 export const Container = styled.div`
     width: 144rem;
     height: 100vh;
@@ -15,7 +26,7 @@ export const Container = styled.div`
     main {
         grid-area: main;
         width: 100%;
-        padding: 0 3.2rem;
+        padding: 0 3.2rem 3.2rem;
 
         display: flex;
         flex-direction: row;
@@ -67,7 +78,18 @@ export const Container = styled.div`
 
         }
 
-        .vehicles {
+        
+    }
+`;
+
+export const TableContainer = styled.div`
+    display: ${({isActive}) => isActive ? "auto" : "none"};
+
+
+    .vehicles {
+
+            overflow: auto;
+
             width: 58.7rem;
             
             border: .1rem solid ${({theme}) => theme.COLORS.light_100};
@@ -143,7 +165,9 @@ export const Container = styled.div`
         }
 
         .alerts {
+            overflow: auto;
             width: 58.7rem;
+            height: 79.7rem;
             
             border: .1rem solid ${({theme}) => theme.COLORS.light_100};
             background: ${({theme}) => theme.COLORS.light_100};
@@ -186,7 +210,7 @@ export const Container = styled.div`
                 color: ${({theme}) => theme.COLORS.table_dark_200};
             }
 
-            .alertContainer {
+            .alertsContainer {
                 display: flex;
                 flex-direction: column;
                 gap: .8rem;
@@ -196,75 +220,81 @@ export const Container = styled.div`
                 margin-top: 3.2rem;
             }
 
+        }
+`;
 
-            .alert {
-                padding: .8rem;
-                background: ${({theme}) => theme.COLORS.table_b};
-                border-radius: .4rem;
-                
-                .alertHead {
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: space-between;
-                    align-items: center;
+export const AlertContainer = styled.div`
+    padding: .8rem;
+    background: ${({theme}) => theme.COLORS.table_b};
+    border-radius: .4rem;
     
-                    .titleContainer {
-                        display: flex;
-                        flex-direction: row;
-                        gap: 1.6rem;
-                    }
-    
-                    .arrowContainer {
-                        display: grid;
-                        place-items: center;
-                    }
-                }
+    .alertHead {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
 
-                .alertBody {
-                    margin-top: 1.6rem;
+        .titleContainer {
+            display: flex;
+            flex-direction: row;
+            gap: 1.6rem;
+        }
 
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: flex-start;
-                    gap: 1.6rem;
+        .arrowContainer {
+            display: grid;
+            place-items: center;
 
-                    p {
-                        font-family: 'Roboto';
-                        font-style: normal;
-                        font-weight: 400;
-                        font-size: 1rem;
-                        line-height: 150%;
-                    }
+            .arrowUp {
+                display: ${({isActive}) => isActive ? "auto" : "none"};
+            }
 
-                    span {
-                        font-family: 'Inter';
-                        font-style: normal;
-                        font-weight: 400;
-                        font-size: 1.2rem;
-                        line-height: 150%;
-                    }
-
-                    .alertInfo {
-                        display: flex;
-                        flex-direction: row;
-                        gap: 4.5rem;
-
-                        .momentContainer{
-                            display: flex;
-                            flex-direction: row;
-                            gap: .9rem;
-                        }
-
-                        .alertMoment {
-                            display: flex;
-                            flex-direction: row;
-                            gap: .4rem;
-                        }
-                    }
-
-                }
-
+            .arrowDown {
+                display: ${({isActive}) => isActive ? "none" : "auto"};
             }
         }
+    }
+
+    .alertBody {
+        margin-top: 1.6rem;
+
+        display: ${({isActive}) => isActive ? "flex" : "none" };
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 1.6rem;
+
+        p {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 1rem;
+            line-height: 150%;
+        }
+
+        span {
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 1.2rem;
+            line-height: 150%;
+        }
+
+        .alertInfo {
+            display: flex;
+            flex-direction: row;
+            gap: 4.5rem;
+
+            .momentContainer{
+                display: flex;
+                flex-direction: row;
+                gap: .9rem;
+            }
+
+            .alertMoment {
+                display: flex;
+                flex-direction: row;
+                gap: .4rem;
+            }
+        }
+
     }
 `;

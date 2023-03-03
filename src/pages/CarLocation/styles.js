@@ -12,6 +12,11 @@ export const Container = styled.div`
     "main"
     ;
 
+    .APIMAPS {
+        width: 100.8rem;
+        height: 84.3rem;
+        border-radius: 2rem;
+    }
 
     main {
         grid-area: main;
@@ -141,21 +146,12 @@ export const Container = styled.div`
     }
 
     .travelsContainer {
-        width: 33.2rem;
+        overflow: auto;
+        height: 59.5rem;
+        min-width: 33.2rem;
         display: flex;
         flex-direction: column;
         gap: .8rem;
-    }
-
-    .APIMAPS {
-        width: 100.8rem;
-        height: 84.3rem;
-        border: 1px solid black;
-        text-align: center;
-        margin-bottom: 1.6rem;
-
-        color: ${({theme}) => theme.COLORS.dark_1000};
-        border-radius: 2rem;
     }
 `;
 
@@ -250,6 +246,10 @@ export const Travel = styled.div`
             display: flex;
             flex-direction: column;
             gap: .4rem;
+
+            > .font2 {
+                width: 14.4rem;
+            }
         }
     }
 
@@ -257,6 +257,12 @@ export const Travel = styled.div`
         display: flex;
         flex-direction: row;
         gap: 1.4rem;
+    }
+
+    .info {
+        > .font2 {
+            white-space: nowrap;
+        }
     }
 
     .pins {

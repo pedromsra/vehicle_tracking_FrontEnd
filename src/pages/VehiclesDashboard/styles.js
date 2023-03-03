@@ -131,8 +131,6 @@ export const Container = styled.div`
         .APIMAPS {
             width: 472px;
             height: 180px;
-            border: 1px solid black;
-            text-align: center;
             margin-bottom: 1.6rem;
         }
 

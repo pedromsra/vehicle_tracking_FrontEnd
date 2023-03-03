@@ -35,5 +35,4 @@ export const Container = styled.div`
         height: .1rem;
         background: ${({theme}) => theme.COLORS.light_200};
     }
-        console.log(percentData)
 `;

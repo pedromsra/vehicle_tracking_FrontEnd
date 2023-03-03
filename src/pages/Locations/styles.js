@@ -34,6 +34,7 @@ export const Container = styled.div`
     }
 
     .vehicles {
+        min-width: 35.2rem;
         padding: 0 .6rem;
     }
 
@@ -44,6 +45,8 @@ export const Container = styled.div`
     }
 
     .vehiclesContainer {
+        height: 74.3rem;
+        overflow: auto;
         display: flex;
         flex-direction: column;
         gap: .8rem;
@@ -52,11 +55,6 @@ export const Container = styled.div`
     .APIMAPS {
         width: 100.8rem;
         height: 84.3rem;
-        border: 1px solid black;
-        text-align: center;
-        margin-bottom: 1.6rem;
-
-        color: ${({theme}) => theme.COLORS.dark_1000};
         border-radius: 2rem;
     }
 `;

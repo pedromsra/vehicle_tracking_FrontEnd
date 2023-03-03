@@ -9,13 +9,19 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-google-maps/api": "^2.18.1",
+    "@types/google-map-react": "^2.1.7",
     "apexcharts": "^3.37.1",
     "chart.js": "^4.2.1",
+    "dotenv": "^16.0.3",
+    "geolib": "^3.3.3",
+    "google-map-react": "^2.2.0",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.0",
     "react-chartjs-2": "^5.2.0",
     "react-charts": "^3.0.0-beta.54",
     "react-dom": "^18.2.0",
+    "react-geocode": "^0.2.3",
     "react-icons": "^4.7.1",
     "react-router-dom": "^6.8.2",
     "recharts": "^2.4.3",
@@ -23,9 +29,12 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
+    "@iconify/icons-mdi": "^1.2.42",
+    "@iconify/react": "^4.1.0",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@vitejs/plugin-react": "^3.1.0",
+    "iconify-icon": "^1.0.7",
     "vite": "^4.1.0"
   }
 }

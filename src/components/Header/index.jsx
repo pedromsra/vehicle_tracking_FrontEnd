@@ -1,8 +1,8 @@
 import React from "react"
+import { Link } from "react-router-dom"
 
 import {Container} from "./styles.js"
 
-import {Input} from "../../components/Input"
 import {Button} from "../../components/Button"
 import {ButtonText} from "../../components/ButtonText"
 
@@ -19,13 +19,12 @@ export function Header() {
             <img src={ComigoLogo} alt="" />
 
             <div>
-                <ButtonText title="Início" isActive />
+                <Link to="/" ><ButtonText title="Início" isActive /></Link>
                 <ButtonText title="Motoristas" isActive />
-                <ButtonText title="Veículos" isActive />
-                <ButtonText title="Localização" isActive />
+                <Link to="/vehiclesDashboard" ><ButtonText title="Veículos" isActive /></Link>
+                <Link to="/locations"><ButtonText title="Localização" isActive /></Link>
                 <ButtonText title="Financeiro" isActive />
             </div>
-            
             <div>
                 <Button icon={Reload} isActive />
                 <div className="rectangle" />

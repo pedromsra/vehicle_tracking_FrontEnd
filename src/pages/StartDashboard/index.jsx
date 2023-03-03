@@ -1,4 +1,12 @@
-import { Container } from "./styles";
+import { Container, TableContainer, AlertContainer, Tab, APIMaps } from "./styles";
+
+
+import { useState, useEffect } from "react";
+
+import Data from "../../services/Data.json"
+
+
+import Map from "../../components/MyMapComponent"
 
 import theme from "../../styles/theme"
 
@@ -19,8 +27,206 @@ import Find from "../../assets/find.svg";
 import Alert from "../../assets/alert.svg";
 import Clock from "../../assets/clock.svg";
 import Date from "../../assets/date.svg";
+import Pin from "../../assets/pin.svg";
+
+
+let coords = []
+let adresses = []
+let vehiclesLocations = []
+let counter = 0
+
+const addressesGeo = [
+    "Av. dos Pinheirais, 415 - Neópolis, Natal - RN",
+    "R. Minas Gerais, 238 - Neópolis, Natal - RN",
+    "Av. dos Pinheirais, 327c - Neópolis, Natal - RN",
+    "Alameda das Castanholas, 358 - Neópolis, Natal - RN",
+    "Alameda das Castanholas, 350 - Neópolis, Natal - RN",
+    "R. Rio de Janeiro, 164 - Neópolis, Natal - RN",
+    "Alameda das Castanholas, 344 - Neópolis, Natal - RN",
+    "R. Domingos Alves Queirós, 21 - Nova Parnamirim, Parnamirim - RN",
+    "R. Antônio Lopes Filho, 307 - Nova Parnamirim, Parnamirim - RN",
+    "Rod. Gov. Mário Covas, 424 - Nova Parnamirim, Parnamirim - RN",
+    "Rod. Br Cento e Um, 968 - Tirol, Parnamirim - RN",
+    "Av. Alto do Monte Belo, 169 - Neópolis, Natal - RN",
+    "R. Lúcia Viveiros, 101 - Neópolis, Natal - RN",
+    "Av. Abel Cabral, 3591 - Nova Parnamirim, Parnamirim - RN",
+    "Rod. Gov. Mário Covas, 15660 - Nova Parnamirim, Natal - RN",
+    "Rod. Br Cento e Um, 1010 - Pitimbú, Natal - RN",
+    "Av. Dão Silveira, 159 - Neópolis, Natal - RN",
+    "R. Muriaé, 2910 - Neópolis, Natal - RN",
+    "Praça Das Árvores - R. Juiz de Fora, 2918-2932 - Neópolis, Natal - RN",
+    "R. Gov. Valadares, 1 - Neópolis, Natal - RN",
+    "Rua Rio Beberibe, 186, Emaús",
+    "Av. São Miguel dos Caribes, 16 - Neópolis, Natal - RN",
+    "R. Arapiraca, 52 - Neópolis, Natal - RN",
+    "R. Arapiraca, 1 - Neópolis, Natal - RN",
+    "Ao lado do nº35 - R. Delmiro Gouveia, LOJA 3 - Neópolis, Natal - RN",
+    "R. Dr. Orlando de Azevedo, 530 - Capim Macio, Natal - RN",
+    "Rua Missionário Gunnar Vingren, 1930 - Capim Macio, Natal - RN",
+    "R. Serra dos Milagres, 105 - Nova Parnamirim, Parnamirim - RN",
+    "R. Neópolis, 1734 - Nova Parnamirim, Parnamirim - RN",
+    "Av. Maria Lacerda Montenegro, 77 - Nova Parnamirim, Parnamirim - RN",
+    "R. Adeodato José dos Réis, 1009 - Nova Parnamirim, Parnamirim - RN",
+    "Av. São Miguel dos Caribes, 16 - Neópolis, Natal - RN",
+    "Av. Abel Cabral, 3331 - Nova Parnamirim, Parnamirim - RN",
+    "Av. Abel Cabral, 3591 - Nova Parnamirim, Parnamirim - RN",
+    "Rod. Gov. Mário Covas, 15660 - Nova Parnamirim, Natal - RN",
+    "Rod. Br Cento e Um, 1010 - Pitimbú, Natal - RN",
+    "Av. Dão Silveira, 159 - Neópolis, Natal - RN",
+    "R. Serra dos Milagres, 105 - Nova Parnamirim, Parnamirim - RN",
+    "R. Neópolis, 1734 - Nova Parnamirim, Parnamirim - RN",
+    "Av. Maria Lacerda Montenegro, 77 - Nova Parnamirim, Parnamirim - RN",
+    "R. Adeodato José dos Réis, 1009 - Nova Parnamirim, Parnamirim - RN",
+    "Av. São Miguel dos Caribes, 16 - Neópolis, Natal - RN",
+    "Av. Abel Cabral, 3331 - Nova Parnamirim, Parnamirim - RN",
+    "Av. Abel Cabral, 3591 - Nova Parnamirim, Parnamirim - RN",
+    "Rod. Gov. Mário Covas, 15660 - Nova Parnamirim, Natal - RN",
+    "Rod. Br Cento e Um, 1010 - Pitimbú, Natal - RN",
+    "Av. Dão Silveira, 159 - Neópolis, Natal - RN",
+    "R. Domingos Alves Queirós, 21 - Nova Parnamirim, Parnamirim - RN",
+    "R. Antônio Lopes Filho, 307 - Nova Parnamirim, Parnamirim - RN",
+    "Rod. Gov. Mário Covas, 424 - Nova Parnamirim, Parnamirim - RN",
+    "Rod. Br Cento e Um, 968 - Tirol, Parnamirim - RN",
+    "Av. Alto do Monte Belo, 169 - Neópolis, Natal - RN",
+    "R. Lúcia Viveiros, 101 - Neópolis, Natal - RN",
+    "Av. Abel Cabral, 3591 - Nova Parnamirim, Parnamirim - RN",
+    "Rod. Gov. Mário Covas, 15660 - Nova Parnamirim, Natal - RN",
+    "Rod. Br Cento e Um, 1010 - Pitimbú, Natal - RN",
+    "Av. Dão Silveira, 159 - Neópolis, Natal - RN",
+    "R. Muriaé, 2910 - Neópolis, Natal - RN",
+    "Praça Das Árvores - R. Juiz de Fora, 2918-2932 - Neópolis, Natal - RN",
+    "R. Gov. Valadares, 1 - Neópolis, Natal - RN",
+    "Rua Rio Beberibe, 186, Emaús",
+    "Av. São Miguel dos Caribes, 16 - Neópolis, Natal - RN",
+    "R. Arapiraca, 52 - Neópolis, Natal - RN",
+    "R. Arapiraca, 1 - Neópolis, Natal - RN",
+    "Ao lado do nº35 - R. Delmiro Gouveia, LOJA 3 - Neópolis, Natal - RN",
+    "R. Dr. Orlando de Azevedo, 530 - Capim Macio, Natal - RN",
+    "Rua Missionário Gunnar Vingren, 1930 - Capim Macio, Natal - RN",
+    "Av. dos Pinheirais, 415 - Neópolis, Natal - RN",
+    "R. Minas Gerais, 238 - Neópolis, Natal - RN",
+    "Av. dos Pinheirais, 327c - Neópolis, Natal - RN",
+    "Alameda das Castanholas, 358 - Neópolis, Natal - RN",
+    "Alameda das Castanholas, 350 - Neópolis, Natal - RN",
+    "R. Rio de Janeiro, 164 - Neópolis, Natal - RN",
+    "Alameda das Castanholas, 344 - Neópolis, Natal - RN",
+    "R. Serra dos Milagres, 105 - Nova Parnamirim, Parnamirim - RN",
+    "R. Neópolis, 1734 - Nova Parnamirim, Parnamirim - RN",
+    "Av. Maria Lacerda Montenegro, 77 - Nova Parnamirim, Parnamirim - RN",
+    "R. Adeodato José dos Réis, 1009 - Nova Parnamirim, Parnamirim - RN",
+    "Av. São Miguel dos Caribes, 16 - Neópolis, Natal - RN",
+    "Av. Abel Cabral, 3331 - Nova Parnamirim, Parnamirim - RN",
+    "Av. Abel Cabral, 3591 - Nova Parnamirim, Parnamirim - RN",
+    "Rod. Gov. Mário Covas, 15660 - Nova Parnamirim, Natal - RN",
+    "Rod. Br Cento e Um, 1010 - Pitimbú, Natal - RN",
+    "Av. Dão Silveira, 159 - Neópolis, Natal - RN",
+    "R. Muriaé, 2910 - Neópolis, Natal - RN",
+    "Praça Das Árvores - R. Juiz de Fora, 2918-2932 - Neópolis, Natal - RN",
+    "R. Gov. Valadares, 1 - Neópolis, Natal - RN",
+    "Rua Rio Beberibe, 186, Emaús",
+    "Av. São Miguel dos Caribes, 16 - Neópolis, Natal - RN",
+    "R. Arapiraca, 52 - Neópolis, Natal - RN",
+    "R. Arapiraca, 1 - Neópolis, Natal - RN",
+    "Ao lado do nº35 - R. Delmiro Gouveia, LOJA 3 - Neópolis, Natal - RN",
+    "R. Dr. Orlando de Azevedo, 530 - Capim Macio, Natal - RN",
+    "Rua Missionário Gunnar Vingren, 1930 - Capim Macio, Natal - RN",
+    "R. Domingos Alves Queirós, 21 - Nova Parnamirim, Parnamirim - RN",
+    "R. Antônio Lopes Filho, 307 - Nova Parnamirim, Parnamirim - RN",
+    "Rod. Gov. Mário Covas, 424 - Nova Parnamirim, Parnamirim - RN",
+    "Rod. Br Cento e Um, 968 - Tirol, Parnamirim - RN",
+    "Av. Alto do Monte Belo, 169 - Neópolis, Natal - RN",
+    "R. Lúcia Viveiros, 101 - Neópolis, Natal - RN",
+    "Av. Abel Cabral, 3591 - Nova Parnamirim, Parnamirim - RN",
+    "Rod. Gov. Mário Covas, 15660 - Nova Parnamirim, Natal - RN",
+    "Rod. Br Cento e Um, 1010 - Pitimbú, Natal - RN",
+    "Av. Dão Silveira, 159 - Neópolis, Natal - RN",
+    "Av. dos Pinheirais, 415 - Neópolis, Natal - RN",
+    "R. Minas Gerais, 238 - Neópolis, Natal - RN",
+    "Av. dos Pinheirais, 327c - Neópolis, Natal - RN",
+    "Alameda das Castanholas, 358 - Neópolis, Natal - RN",
+    "Alameda das Castanholas, 350 - Neópolis, Natal - RN",
+    "R. Rio de Janeiro, 164 - Neópolis, Natal - RN",
+    "Alameda das Castanholas, 344 - Neópolis, Natal - RN"
+]
+
+Data.cars.forEach(car => {
+    vehiclesLocations.push(car.localNow)
+    car.travels.forEach(travel => {
+        travel.locations.forEach(location => {
+            if(location.velocity >= 100) {
+                coords.push({coord: location.coord,index: counter})
+                counter++
+            }
+        })
+    })
+})
+for(let i=0; i < coords.length; i++){
+    adresses[coords[i].index] = addressesGeo[coords[i].index]
+}
+
+const alertsCoords = coords.map(loc => {
+    return {lat: loc.coord[0], lng: loc.coord[1]}
+})
+
+const vehiclesCoords = vehiclesLocations.map(loc => {
+    return {lat: loc[0], lng: loc[1]}
+})
+
+const center = {lat: coords[Math.floor(coords.length/2)].coord[0], lng: coords[Math.floor(coords.length/2)].coord[1]}
+
+const centerVehicles = {lat: vehiclesLocations[Math.floor(vehiclesLocations.length/2)][0], lng: vehiclesLocations[Math.floor(vehiclesLocations.length/2)][1]}
+
+let zoom1 = Math.abs(coords[coords.length-1].coord[0]-coords[0].coord[0])*1000
+
+if (zoom1 < 13) {
+    zoom1 = 15
+} else if (zoom1 > 20 && zoom1 < 100) {
+    zoom1 = 13
+} else if (zoom1 > 100 && zoom1 < 1000) {
+    zoom1 = 11
+} else if (zoom1 > 1000) {
+    zoom1 = 6.5
+}
+
+let zoom2 = Math.abs(vehiclesLocations[vehiclesLocations.length-1][0]-vehiclesLocations[0][0])*1000
+
+if (zoom2 < 13) {
+    zoom2 = 14
+} else if (zoom2 > 20 && zoom2 < 100) {
+    zoom2 = 12
+} else if (zoom2 > 100 && zoom2 < 1000) {
+    zoom2 = 10
+} else if (zoom2 > 1000) {
+    zoom2 = 6.5
+}
+
 
 export function StartDashboard(){
+    let alertsCounter = []
+    let alerts
+    let alertsTravels
+    let dateTimeHandler
+    let date
+    let time
+
+    const tabTitle = ["Veículos", "Alertas"]
+
+    const [activeTab, setActiveTab] = useState(tabTitle[0]);
+
+    const [activeAlert, setActiveAlert] = useState([alertsCounter[0]])
+
+    function handleAlertsSelected(counter){
+        const alreadySelected = activeAlert.includes(counter);
+        if(alreadySelected){
+            const filteredAlert = activeAlert.filter(alert => alert !== counter);
+            setActiveAlert(filteredAlert);
+        } else {
+            setActiveAlert(prevState => [...prevState, counter]);
+        }
+    }
+
+    
+
     return (
         <Container>
             <Header />
@@ -87,529 +293,102 @@ export function StartDashboard(){
                             },
                         ]} />
                     </Section>
+                    <APIMaps isActive={"Alertas" === activeTab}><Map center={center} location={alertsCoords} zoom={zoom1} markIcon={Pin}/></APIMaps>
+                    <APIMaps isActive={"Veículos" === activeTab}><Map center={centerVehicles} location={vehiclesCoords} zoom={zoom2} markIcon={Vehicle}/></APIMaps>
                 </div>
                 <div className="table">
-                    <div className="tableContainer">
                         <div className="header">
                             <div className="headerTabs">
-                                <div className="Tab1" style={{color: theme.COLORS.secondary, borderBottom: "2px solid "+theme.COLORS.secondary}} >Veículos</div>
-                                <div className="Tab2" style={{color: theme.COLORS.light_500, borderBottom: "2px solid "+theme.COLORS.light_100}} >Alertas</div>
+                                {
+                                    tabTitle.map(title => (
+                                        <Tab key={title} className={title} isActive={title === activeTab} onClick={() => setActiveTab(title)} >{title}</Tab>
+                                    ))
+                                }
                             </div>
                             <Input icon={Find} inputWidth="20.8rem" placeholder="Pesquisar" />
                         </div>
+                    <TableContainer className="Veículos" isActive={"Veículos" === activeTab}>
                         <table className="vehicles" cellSpacing="0" >
                             <tbody>
-
-                                <tr>
-                                    <td><div>Placa<span>Apelido</span></div></td>
-                                    <td><div>Categoria<span>Modelo</span></div></td>
-                                    <td><a>Mais informações</a></td>
-                                </tr>
-                                <tr>
-                                    <td><div>Placa<span>Apelido</span></div></td>
-                                    <td><div>Categoria<span>Modelo</span></div></td>
-                                    <td><a>Mais informações</a></td>
-                                </tr><tr>
-                                    <td><div>Placa<span>Apelido</span></div></td>
-                                    <td><div>Categoria<span>Modelo</span></div></td>
-                                    <td><a>Mais informações</a></td>
-                                </tr>
-                                <tr>
-                                    <td><div>Placa<span>Apelido</span></div></td>
-                                    <td><div>Categoria<span>Modelo</span></div></td>
-                                    <td><a>Mais informações</a></td>
-                                </tr>
-                                <tr>
-                                    <td><div>Placa<span>Apelido</span></div></td>
-                                    <td><div>Categoria<span>Modelo</span></div></td>
-                                    <td><a>Mais informações</a></td>
-                                </tr><tr>
-                                    <td><div>Placa<span>Apelido</span></div></td>
-                                    <td><div>Categoria<span>Modelo</span></div></td>
-                                    <td><a>Mais informações</a></td>
-                                </tr>
-                                <tr>
-                                    <td><div>Placa<span>Apelido</span></div></td>
-                                    <td><div>Categoria<span>Modelo</span></div></td>
-                                    <td><a>Mais informações</a></td>
-                                </tr>
-                                <tr>
-                                    <td><div>Placa<span>Apelido</span></div></td>
-                                    <td><div>Categoria<span>Modelo</span></div></td>
-                                    <td><a>Mais informações</a></td>
-                                </tr><tr>
-                                    <td><div>Placa<span>Apelido</span></div></td>
-                                    <td><div>Categoria<span>Modelo</span></div></td>
-                                    <td><a>Mais informações</a></td>
-                                </tr>
+                                {Data && Data.cars.map(car => (
+                                    <tr key={String(car.id)}>
+                                        <td><div>{car.plate}<span>Apelido</span></div></td>
+                                        <td><div>Categoria<span>{car.model}</span></div></td>
+                                        <td><a>Mais informações</a></td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
-                    </div>
-                    <div className="tableContainer" style={{display: "none"}}>
-                        <div className="header">
-                            <div className="headerTabs">
-                                <div className="Tab1" style={{color: theme.COLORS.light_500, borderBottom: "2px solid "+theme.COLORS.light_100}} >Veículos</div>
-                                <div className="Tab2" style={{color: theme.COLORS.secondary, borderBottom: "2px solid "+theme.COLORS.secondary}} >Alertas</div>
-                            </div>
-                            <Input icon={Find} inputWidth="20.8rem" placeholder="Pesquisar" />
-                        </div>
+                    </TableContainer>
+                    <TableContainer className="Alertas" isActive={"Alertas" === activeTab} >
                         <div className="alerts" >
                             <div className="todayAlert" >
                                 <h3>Hoje</h3>
-                                <div className="alertContainer">
-                                    <div className="alert">
-                                        <div className="alertHead">
-                                            <div className="titleContainer">
-                                                <img src={Alert} alt="alert icon" />
-                                                <p>O veículo Uno Drive 1.0 RGM8F93 passou do limite de velocidade</p>
-                                            </div>
-                                            <div className="arrowContainer">
-                                                <button><img className="arrow" src={ArrowUp} alt="arrow up" style={{display: "none"}}/></button>
-                                                <button><img className="arrow" src={ArrowDown} alt="arrow up" /></button>
-                                            </div>
-                                        </div>
-                                        <div className="alertBody">
-                                            <div className="alertLocal">
-                                                <p>Localização</p>
-                                                <span>Rua Rio Beberibe, 186, Emaús, Parnamirim - RN</span>
-                                            </div>
-                                            <div className="alertInfo">
-                                                <div className="alertAt">
-                                                    <p>Momento da ocorrencia</p>
-                                                    <div className="momentContainer">
-                                                        <div className="alertMoment">
-                                                            <img src={Date} alt="calendar icon" />
-                                                            <span>03/11/2022</span>
-                                                        </div>
-                                                        <div className="alertMoment">
-                                                            <img src={Clock} alt="clock icon" />
-                                                            <span>12:47</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="alertVelocity">
-                                                    <p>Velocidade</p>
-                                                    <span>100 km/h</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="alert">
-                                        <div className="alertHead">
-                                            <div className="titleContainer">
-                                                <img src={Alert} alt="alert icon" />
-                                                <p>O veículo Uno Drive 1.0 RGM8F93 passou do limite de velocidade</p>
-                                            </div>
-                                            <div className="arrowContainer">
-                                                <button><img className="arrow" src={ArrowUp} alt="arrow up" /></button>
-                                                <button><img className="arrow" src={ArrowDown} alt="arrow up" style={{display: "none"}}/></button>
-                                            </div>
-                                        </div>
-                                        <div className="alertBody" style={{display: "none"}}>
-                                            <div className="alertLocal">
-                                                <p>Localização</p>
-                                                <span>Rua Rio Beberibe, 186, Emaús, Parnamirim - RN</span>
-                                            </div>
-                                            <div className="alertInfo">
-                                                <div className="alertAt">
-                                                    <p>Momento da ocorrencia</p>
-                                                    <div className="momentContainer">
-                                                        <div className="alertMoment">
-                                                            <img src={Date} alt="calendar icon" />
-                                                            <span>03/11/2022</span>
-                                                        </div>
-                                                        <div className="alertMoment">
-                                                            <img src={Clock} alt="clock icon" />
-                                                            <span>12:47</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="alertVelocity">
-                                                    <p>Velocidade</p>
-                                                    <span>100 km/h</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div className="alertsContainer">
+                                    {Data && Data.cars.map(car => {
+                                        alertsTravels = car.travels.map(travel => {
+                                            alerts = travel.locations.map(location => {
+                                                if(location.velocity >= 100){
+                                                    dateTimeHandler = location.timestamp.split(" ");
+
+                                                    date = dateTimeHandler[0]
+
+                                                    time = dateTimeHandler[1]
+                                                    
+                                                    return (
+                                                        <AlertContainer isActive={activeAlert.includes(String(location.id))} key={String(location.id)}>
+                                                            
+                                                            <div className="alertHead">
+                                                                <div className="titleContainer">
+                                                                    <img src={Alert} alt="alert icon" />
+                                                                    <p>O veículo {car.model} {car.plate} passou do limite de velocidade</p>
+                                                                </div>
+                                                                <div className="arrowContainer">
+                                                                    <button><img className="arrowUp" src={ArrowUp} alt="arrow up" onClick={() => handleAlertsSelected(String(location.id))}/></button>
+                                                                    <button><img className="arrowDown" src={ArrowDown} alt="arrow up" onClick={() => handleAlertsSelected(String(location.id))} /></button>
+                                                                </div>
+                                                            </div>
+                                                            <div className="alertBody">
+                                                                <div className="alertLocal">
+                                                                    <p>Localização</p>
+                                                                    <span>{adresses[location.id]}</span>
+                                                                </div>
+                                                                <div className="alertInfo">
+                                                                    <div className="alertAt">
+                                                                        <p>Momento da ocorrencia</p>
+                                                                        <div className="momentContainer">
+                                                                            <div className="alertMoment">
+                                                                                <img src={Date} alt="calendar icon" />
+                                                                                <span>{date}</span>
+                                                                            </div>
+                                                                            <div className="alertMoment">
+                                                                                <img src={Clock} alt="clock icon" />
+                                                                                <span>{time}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="alertVelocity">
+                                                                        <p>Velocidade</p>
+                                                                        <span>{location.velocity} km/h</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </AlertContainer>
+                                                    )
+                                                }
+                                            })
+                                            return alerts
+                                        })
+                                        return alertsTravels
+                                    })}
+                                    
                                 </div>
                             </div>
                             <div className="yesterdayAlert" >
                                 <h3>Ontem</h3>
-                                <div className="alertContainer">
-                                    <div className="alert">
-                                            <div className="alertHead">
-                                                <div className="titleContainer">
-                                                    <img src={Alert} alt="alert icon" />
-                                                    <p>O veículo Uno Drive 1.0 RGM8F93 passou do limite de velocidade</p>
-                                                </div>
-                                                <div className="arrowContainer">
-                                                    <button><img className="arrow" src={ArrowUp} alt="arrow up" /></button>
-                                                    <button><img className="arrow" src={ArrowDown} alt="arrow up" style={{display: "none"}}/></button>
-                                                </div>
-                                            </div>
-                                            <div className="alertBody" style={{display: "none"}}>
-                                                <div className="alertLocal">
-                                                    <p>Localização</p>
-                                                    <span>Rua Rio Beberibe, 186, Emaús, Parnamirim - RN</span>
-                                                </div>
-                                                <div className="alertInfo">
-                                                    <div className="alertAt">
-                                                        <p>Momento da ocorrencia</p>
-                                                        <div className="momentContainer">
-                                                            <div className="alertMoment">
-                                                                <img src={Date} alt="calendar icon" />
-                                                                <span>03/11/2022</span>
-                                                            </div>
-                                                            <div className="alertMoment">
-                                                                <img src={Clock} alt="clock icon" />
-                                                                <span>12:47</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="alertVelocity">
-                                                        <p>Velocidade</p>
-                                                        <span>100 km/h</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                    </div>
-                                    <div className="alert">
-                                        <div className="alertHead">
-                                            <div className="titleContainer">
-                                                <img src={Alert} alt="alert icon" />
-                                                <p>O veículo Uno Drive 1.0 RGM8F93 passou do limite de velocidade</p>
-                                            </div>
-                                            <div className="arrowContainer">
-                                                <button><img className="arrow" src={ArrowUp} alt="arrow up" /></button>
-                                                <button><img className="arrow" src={ArrowDown} alt="arrow up" style={{display: "none"}}/></button>
-                                            </div>
-                                        </div>
-                                        <div className="alertBody" style={{display: "none"}}>
-                                            <div className="alertLocal">
-                                                <p>Localização</p>
-                                                <span>Rua Rio Beberibe, 186, Emaús, Parnamirim - RN</span>
-                                            </div>
-                                            <div className="alertInfo">
-                                                <div className="alertAt">
-                                                    <p>Momento da ocorrencia</p>
-                                                    <div className="momentContainer">
-                                                        <div className="alertMoment">
-                                                            <img src={Date} alt="calendar icon" />
-                                                            <span>03/11/2022</span>
-                                                        </div>
-                                                        <div className="alertMoment">
-                                                            <img src={Clock} alt="clock icon" />
-                                                            <span>12:47</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="alertVelocity">
-                                                    <p>Velocidade</p>
-                                                    <span>100 km/h</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="alert">
-                                        <div className="alertHead">
-                                            <div className="titleContainer">
-                                                <img src={Alert} alt="alert icon" />
-                                                <p>O veículo Uno Drive 1.0 RGM8F93 passou do limite de velocidade</p>
-                                            </div>
-                                            <div className="arrowContainer">
-                                                <button><img className="arrow" src={ArrowUp} alt="arrow up" /></button>
-                                                <button><img className="arrow" src={ArrowDown} alt="arrow up" style={{display: "none"}}/></button>
-                                            </div>
-                                        </div>
-                                        <div className="alertBody" style={{display: "none"}}>
-                                            <div className="alertLocal">
-                                                <p>Localização</p>
-                                                <span>Rua Rio Beberibe, 186, Emaús, Parnamirim - RN</span>
-                                            </div>
-                                            <div className="alertInfo">
-                                                <div className="alertAt">
-                                                    <p>Momento da ocorrencia</p>
-                                                    <div className="momentContainer">
-                                                        <div className="alertMoment">
-                                                            <img src={Date} alt="calendar icon" />
-                                                            <span>03/11/2022</span>
-                                                        </div>
-                                                        <div className="alertMoment">
-                                                            <img src={Clock} alt="clock icon" />
-                                                            <span>12:47</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="alertVelocity">
-                                                    <p>Velocidade</p>
-                                                    <span>100 km/h</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="alert">
-                                        <div className="alertHead">
-                                            <div className="titleContainer">
-                                                <img src={Alert} alt="alert icon" />
-                                                <p>O veículo Uno Drive 1.0 RGM8F93 passou do limite de velocidade</p>
-                                            </div>
-                                            <div className="arrowContainer">
-                                                <button><img className="arrow" src={ArrowUp} alt="arrow up" /></button>
-                                                <button><img className="arrow" src={ArrowDown} alt="arrow up" style={{display: "none"}}/></button>
-                                            </div>
-                                        </div>
-                                        <div className="alertBody" style={{display: "none"}}>
-                                            <div className="alertLocal">
-                                                <p>Localização</p>
-                                                <span>Rua Rio Beberibe, 186, Emaús, Parnamirim - RN</span>
-                                            </div>
-                                            <div className="alertInfo">
-                                                <div className="alertAt">
-                                                    <p>Momento da ocorrencia</p>
-                                                    <div className="momentContainer">
-                                                        <div className="alertMoment">
-                                                            <img src={Date} alt="calendar icon" />
-                                                            <span>03/11/2022</span>
-                                                        </div>
-                                                        <div className="alertMoment">
-                                                            <img src={Clock} alt="clock icon" />
-                                                            <span>12:47</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="alertVelocity">
-                                                    <p>Velocidade</p>
-                                                    <span>100 km/h</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="alert">
-                                        <div className="alertHead">
-                                            <div className="titleContainer">
-                                                <img src={Alert} alt="alert icon" />
-                                                <p>O veículo Uno Drive 1.0 RGM8F93 passou do limite de velocidade</p>
-                                            </div>
-                                            <div className="arrowContainer">
-                                                <button><img className="arrow" src={ArrowUp} alt="arrow up" /></button>
-                                                <button><img className="arrow" src={ArrowDown} alt="arrow up" style={{display: "none"}}/></button>
-                                            </div>
-                                        </div>
-                                        <div className="alertBody" style={{display: "none"}}>
-                                            <div className="alertLocal">
-                                                <p>Localização</p>
-                                                <span>Rua Rio Beberibe, 186, Emaús, Parnamirim - RN</span>
-                                            </div>
-                                            <div className="alertInfo">
-                                                <div className="alertAt">
-                                                    <p>Momento da ocorrencia</p>
-                                                    <div className="momentContainer">
-                                                        <div className="alertMoment">
-                                                            <img src={Date} alt="calendar icon" />
-                                                            <span>03/11/2022</span>
-                                                        </div>
-                                                        <div className="alertMoment">
-                                                            <img src={Clock} alt="clock icon" />
-                                                            <span>12:47</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="alertVelocity">
-                                                    <p>Velocidade</p>
-                                                    <span>100 km/h</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="alert">
-                                        <div className="alertHead">
-                                            <div className="titleContainer">
-                                                <img src={Alert} alt="alert icon" />
-                                                <p>O veículo Uno Drive 1.0 RGM8F93 passou do limite de velocidade</p>
-                                            </div>
-                                            <div className="arrowContainer">
-                                                <button><img className="arrow" src={ArrowUp} alt="arrow up" /></button>
-                                                <button><img className="arrow" src={ArrowDown} alt="arrow up" style={{display: "none"}}/></button>
-                                            </div>
-                                        </div>
-                                        <div className="alertBody" style={{display: "none"}}>
-                                            <div className="alertLocal">
-                                                <p>Localização</p>
-                                                <span>Rua Rio Beberibe, 186, Emaús, Parnamirim - RN</span>
-                                            </div>
-                                            <div className="alertInfo">
-                                                <div className="alertAt">
-                                                    <p>Momento da ocorrencia</p>
-                                                    <div className="momentContainer">
-                                                        <div className="alertMoment">
-                                                            <img src={Date} alt="calendar icon" />
-                                                            <span>03/11/2022</span>
-                                                        </div>
-                                                        <div className="alertMoment">
-                                                            <img src={Clock} alt="clock icon" />
-                                                            <span>12:47</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="alertVelocity">
-                                                    <p>Velocidade</p>
-                                                    <span>100 km/h</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="alert">
-                                        <div className="alertHead">
-                                            <div className="titleContainer">
-                                                <img src={Alert} alt="alert icon" />
-                                                <p>O veículo Uno Drive 1.0 RGM8F93 passou do limite de velocidade</p>
-                                            </div>
-                                            <div className="arrowContainer">
-                                                <button><img className="arrow" src={ArrowUp} alt="arrow up" /></button>
-                                                <button><img className="arrow" src={ArrowDown} alt="arrow up" style={{display: "none"}}/></button>
-                                            </div>
-                                        </div>
-                                        <div className="alertBody" style={{display: "none"}}>
-                                            <div className="alertLocal">
-                                                <p>Localização</p>
-                                                <span>Rua Rio Beberibe, 186, Emaús, Parnamirim - RN</span>
-                                            </div>
-                                            <div className="alertInfo">
-                                                <div className="alertAt">
-                                                    <p>Momento da ocorrencia</p>
-                                                    <div className="momentContainer">
-                                                        <div className="alertMoment">
-                                                            <img src={Date} alt="calendar icon" />
-                                                            <span>03/11/2022</span>
-                                                        </div>
-                                                        <div className="alertMoment">
-                                                            <img src={Clock} alt="clock icon" />
-                                                            <span>12:47</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="alertVelocity">
-                                                    <p>Velocidade</p>
-                                                    <span>100 km/h</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="alert">
-                                        <div className="alertHead">
-                                            <div className="titleContainer">
-                                                <img src={Alert} alt="alert icon" />
-                                                <p>O veículo Uno Drive 1.0 RGM8F93 passou do limite de velocidade</p>
-                                            </div>
-                                            <div className="arrowContainer">
-                                                <button><img className="arrow" src={ArrowUp} alt="arrow up" /></button>
-                                                <button><img className="arrow" src={ArrowDown} alt="arrow up" style={{display: "none"}}/></button>
-                                            </div>
-                                        </div>
-                                        <div className="alertBody" style={{display: "none"}}>
-                                            <div className="alertLocal">
-                                                <p>Localização</p>
-                                                <span>Rua Rio Beberibe, 186, Emaús, Parnamirim - RN</span>
-                                            </div>
-                                            <div className="alertInfo">
-                                                <div className="alertAt">
-                                                    <p>Momento da ocorrencia</p>
-                                                    <div className="momentContainer">
-                                                        <div className="alertMoment">
-                                                            <img src={Date} alt="calendar icon" />
-                                                            <span>03/11/2022</span>
-                                                        </div>
-                                                        <div className="alertMoment">
-                                                            <img src={Clock} alt="clock icon" />
-                                                            <span>12:47</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="alertVelocity">
-                                                    <p>Velocidade</p>
-                                                    <span>100 km/h</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="alert">
-                                        <div className="alertHead">
-                                            <div className="titleContainer">
-                                                <img src={Alert} alt="alert icon" />
-                                                <p>O veículo Uno Drive 1.0 RGM8F93 passou do limite de velocidade</p>
-                                            </div>
-                                            <div className="arrowContainer">
-                                                <button><img className="arrow" src={ArrowUp} alt="arrow up" /></button>
-                                                <button><img className="arrow" src={ArrowDown} alt="arrow up" style={{display: "none"}}/></button>
-                                            </div>
-                                        </div>
-                                        <div className="alertBody" style={{display: "none"}}>
-                                            <div className="alertLocal">
-                                                <p>Localização</p>
-                                                <span>Rua Rio Beberibe, 186, Emaús, Parnamirim - RN</span>
-                                            </div>
-                                            <div className="alertInfo">
-                                                <div className="alertAt">
-                                                    <p>Momento da ocorrencia</p>
-                                                    <div className="momentContainer">
-                                                        <div className="alertMoment">
-                                                            <img src={Date} alt="calendar icon" />
-                                                            <span>03/11/2022</span>
-                                                        </div>
-                                                        <div className="alertMoment">
-                                                            <img src={Clock} alt="clock icon" />
-                                                            <span>12:47</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="alertVelocity">
-                                                    <p>Velocidade</p>
-                                                    <span>100 km/h</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="alert">
-                                        <div className="alertHead">
-                                            <div className="titleContainer">
-                                                <img src={Alert} alt="alert icon" />
-                                                <p>O veículo Uno Drive 1.0 RGM8F93 passou do limite de velocidade</p>
-                                            </div>
-                                            <div className="arrowContainer">
-                                                <button><img className="arrow" src={ArrowUp} alt="arrow up" /></button>
-                                                <button><img className="arrow" src={ArrowDown} alt="arrow up" style={{display: "none"}}/></button>
-                                            </div>
-                                        </div>
-                                        <div className="alertBody" style={{display: "none"}}>
-                                            <div className="alertLocal">
-                                                <p>Localização</p>
-                                                <span>Rua Rio Beberibe, 186, Emaús, Parnamirim - RN</span>
-                                            </div>
-                                            <div className="alertInfo">
-                                                <div className="alertAt">
-                                                    <p>Momento da ocorrencia</p>
-                                                    <div className="momentContainer">
-                                                        <div className="alertMoment">
-                                                            <img src={Date} alt="calendar icon" />
-                                                            <span>03/11/2022</span>
-                                                        </div>
-                                                        <div className="alertMoment">
-                                                            <img src={Clock} alt="clock icon" />
-                                                            <span>12:47</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="alertVelocity">
-                                                    <p>Velocidade</p>
-                                                    <span>100 km/h</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
-                    </div>
+                    </TableContainer>
                 </div>
             </main>
         </Container>

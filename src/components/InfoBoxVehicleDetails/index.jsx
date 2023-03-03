@@ -1,10 +1,11 @@
 import { Container } from "./styles";
+import { Link } from "react-router-dom";
 
 import Clock from "../../assets/clock.svg";
 import Date from "../../assets/date.svg";
 import ArrowRight from "../../assets/arrowRightPrimary.svg"
 
-export function InfoBoxVehicleDetails({ data, isActive = false, ...rest }) {
+export function InfoBoxVehicleDetails({ data, id, isActive = false, ...rest }) {
     
     const dateTimeGPS = data.commGPS.split(" ");
     const dateTimeServer = data.commServer.split(" ");
@@ -82,7 +83,7 @@ export function InfoBoxVehicleDetails({ data, isActive = false, ...rest }) {
                 </div>
             </div>
             <div className="travelHistory">
-                <a href="">Histórico de viagens</a>
+                <Link to={"/carLocation/"+String(id)}>Histórico de viagens</Link>
                 <img src={ArrowRight} alt="arrow to right icon" />
             </div>
             <a className="sendCommand" href="">Enviar comando</a>
