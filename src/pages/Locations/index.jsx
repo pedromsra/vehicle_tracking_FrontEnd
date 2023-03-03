@@ -1,6 +1,6 @@
 import { Container } from "./styles";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import {myAddress} from "../../services/geocode"
 

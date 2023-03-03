@@ -4,9 +4,7 @@ import Map from "../../components/MyMapComponent"
 
 import {useParams} from "react-router-dom";
 
-import { useState, useEffect } from "react";
-
-import {myAddress} from "../../services/geocode"
+import { useState } from "react";
 
 import Data from "../../services/Data.json"
 
@@ -15,12 +13,8 @@ import { myPathLength } from "../../services/distancy";
 import { Header } from "../../components/Header";
 import { Where } from "../../components/Where";
 import { DateInput } from "../../components/DateInput";
-import { InfoBoxVehicle } from "../../components/InfoBoxVehicle"
-import { InfoBoxVehicleDetails } from "../../components/InfoBoxVehicleDetails"
 
-import Find from "../../assets/find.svg";
 import Car from "../../assets/Car.svg";
-import PinSucess from "../../assets/pinSucess.svg";
 import PinAlert from "../../assets/pinAlert.svg";
 import Pin from "../../assets/pin.svg";
 import Clock from "../../assets/clock.svg";

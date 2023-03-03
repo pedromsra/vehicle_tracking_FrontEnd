@@ -1,14 +1,12 @@
 import { Container, TableContainer, AlertContainer, Tab, APIMaps } from "./styles";
 
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import Data from "../../services/Data.json"
 
 
 import Map from "../../components/MyMapComponent"
-
-import theme from "../../styles/theme"
 
 import { Header } from "../../components/Header";
 import { Section } from "../../components/Section";
@@ -160,6 +158,7 @@ Data.cars.forEach(car => {
         })
     })
 })
+
 for(let i=0; i < coords.length; i++){
     adresses[coords[i].index] = addressesGeo[coords[i].index]
 }
@@ -179,11 +178,11 @@ const centerVehicles = {lat: vehiclesLocations[Math.floor(vehiclesLocations.leng
 let zoom1 = Math.abs(coords[coords.length-1].coord[0]-coords[0].coord[0])*1000
 
 if (zoom1 < 13) {
-    zoom1 = 15
-} else if (zoom1 > 20 && zoom1 < 100) {
     zoom1 = 13
+} else if (zoom1 > 20 && zoom1 < 100) {
+    zoom1 = 12
 } else if (zoom1 > 100 && zoom1 < 1000) {
-    zoom1 = 11
+    zoom1 = 10
 } else if (zoom1 > 1000) {
     zoom1 = 6.5
 }
@@ -224,8 +223,6 @@ export function StartDashboard(){
             setActiveAlert(prevState => [...prevState, counter]);
         }
     }
-
-    
 
     return (
         <Container>
