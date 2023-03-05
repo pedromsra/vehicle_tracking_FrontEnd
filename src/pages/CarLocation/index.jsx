@@ -167,38 +167,6 @@ export function CarLocation(){
         pathSelected.push(pathS)
     })
 
-    console.log(pathSelected)
-
-    let center
-    let zoom
-
-    if (pathSelected.length !== 0){
-        center = {lat: pathSelected[0][Math.floor(pathSelected[0].length/2)].lat, lng: pathSelected[0][Math.floor(pathSelected.length/2)].lng}
-        
-        zoom = Math.abs(pathSelected[0][pathSelected[0].length-1].lat-pathSelected[0][0].lat)*1000
-        
-        if (zoom < 13) {
-            zoom = 15
-        } else if (zoom > 20 && zoom < 100) {
-            zoom = 13
-        } else if (zoom > 100 && zoom < 1000) {
-            zoom = 11
-        } else if (zoom > 1000) {
-            zoom = 6.5
-        }
-    } else {
-        center = {
-            lat: -5.859108709146206,
-            lng: -35.2104147792261
-        }
-
-        zoom = 15
-    }
-
-
-    console.log(center, zoom)
-
-
     const timeStampGPS = {date: Data.cars[params.id-1].commGPS.split(" ")[0], time: Data.cars[params.id-1].commGPS.split(" ")[1]}
     const timeStampServer = {date: Data.cars[params.id-1].commServer.split(" ")[0], time: Data.cars[params.id-1].commServer.split(" ")[1]}
     
@@ -218,7 +186,7 @@ export function CarLocation(){
             <Header />
             <Where title="Localização" />
             <main>
-                <div className="APIMAPS"><Map path={pathSelected} center={center} zoom={zoom} /></div>
+                <div className="APIMAPS"><Map paths={pathSelected} /></div>
                 <div className="travels">
                     <h1>Viagens</h1>
                     <div className="carTravelInfo">

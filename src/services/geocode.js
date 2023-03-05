@@ -2,7 +2,7 @@ import Geocode from "react-geocode";
 
 Geocode.setApiKey("AIzaSyBq0hGuUOIkahRznQojlHs2V_kCLaobxJ0");
 Geocode.setLanguage("pt-br");
-Geocode.setLocationType("ROOFTOP");
+Geocode.setLocationType("APPROXIMATE");
 Geocode.enableDebug();
 
 export async function myAddress(lat, lng){
@@ -14,7 +14,8 @@ export async function myAddress(lat, lng){
             return address
         },
         (error) => {
-            console.error(error);
+            console.error("Endereço não encontrado");
+            return "Rua, Nº - Bairro, Cidade - UF"
         }
     );
 

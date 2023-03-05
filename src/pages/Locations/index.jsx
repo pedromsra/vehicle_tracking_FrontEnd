@@ -157,26 +157,12 @@ export function Locations(){
         return {lat: car.localNow[0], lng: car.localNow[1]}
     })
 
-    const center = {lat: carLocationNow[Math.floor(carLocationNow.length/2)].lat, lng: carLocationNow[Math.floor(carLocationNow.length/2)].lng}
-
-    let zoom = Math.abs(carLocationNow[carLocationNow.length-1].lat-carLocationNow[0].lat)*1000
-    console.log(center)
-    if (zoom < 13) {
-        zoom = 15
-    } else if (zoom > 20 && zoom < 100) {
-        zoom = 13
-    } else if (zoom > 100 && zoom < 1000) {
-        zoom = 11
-    } else if (zoom > 1000) {
-        zoom = 6.5
-    }
-
     return (
         <Container>
             <Header />
             <Where title="Localização" />
             <main>
-                <div className="APIMAPS"><Map center={center} location={carLocationNow} markIcon={Car} zoom={zoom} /></div>
+                <div className="APIMAPS"><Map markersInit={carLocationNow} markersInitIcon={Car} /></div>
                 <div className="vehicles">
                     <h1>Veículos</h1>
                     <Input icon={Find} placeholder="Pesquisar" classInput="findVehicles" />

@@ -8,6 +8,8 @@ import { myPathLength } from "../../services/distancy";
 
 import Map from "../../components/MyMapComponent"
 
+import theme from "../../styles/theme"
+
 import { Header } from "../../components/Header";
 import { Where } from "../../components/Where";
 import { Input } from "../../components/Input";
@@ -21,11 +23,6 @@ import PinSucess from "../../assets/pinSucess.svg";
 import Origin from "../../assets/origin.svg";
 import Destiny from "../../assets/destiny.svg";
 import Route from "../../assets/route.svg";
-
-let count = 0
-
-console.log()
-
 
 const addressesGeo = [
     "Av. dos Pinheirais, 415 - Neópolis, Natal - RN",
@@ -142,19 +139,15 @@ const addressesGeo = [
 ]
 
 export function VehiclesDashboard(){
-
+    let count = 0
+    
     let lastTravels
-    let lastStartStop
-    let center
+    let lastStart
+    let lastStop
     let dateTimeHandler = []
     let travelLength
     let travelCoords
     let timestampHandler
-
-
-
-
-    
 
     const [vehicleSelected, setVehicleSelected] = useState(Data.cars[0].id)
     const [model, setModel] = useState(Data.cars[0].model)
@@ -180,14 +173,6 @@ export function VehiclesDashboard(){
         setTimestamp(timestampHandler)
     },[])
 
-
-
-
-
-
-
-
-
     dateTimeHandler = timestamp.map(times => {
         return {date: times.timestamp.split(" ")[0], time: times.timestamp.split(" ")[1]}
     })
@@ -210,39 +195,28 @@ export function VehiclesDashboard(){
         })
         return travelCoords
     })
-    
-    lastStartStop = [
+
+    lastStart = [
         {
             lat: Number(travels[0].locations[0].coord[0]),
             lng: Number(travels[0].locations[0].coord[1])
         },
         {
-            lat: Number(travels[0].locations[travels[0].locations.length-1].coord[0]),
-            lng: Number(travels[0].locations[travels[0].locations.length-1].coord[1])
-        },
-        {
             lat: Number(travels[1].locations[0].coord[0]),
             lng: Number(travels[1].locations[0].coord[1])
+        }
+    ]
+
+    lastStop = [
+        {
+            lat: Number(travels[0].locations[travels[0].locations.length-1].coord[0]),
+            lng: Number(travels[0].locations[travels[0].locations.length-1].coord[1])
         },
         {
             lat: Number(travels[1].locations[travels[1].locations.length-1].coord[0]),
             lng: Number(travels[1].locations[travels[1].locations.length-1].coord[1])
         }
     ]
-
-    center = {lat: travels[0].locations[Math.floor(travels[0].locations.length/2)].coord[0], lng: travels[0].locations[Math.floor(travels[0].locations.length/2)].coord[1]}
-
-    let zoom = Math.abs(travels[0].locations[travels[0].locations.length-1].coord[0]-travels[0].locations[0].coord[0])*1000
-
-    if (zoom < 13) {
-        zoom = 12
-    } else if (zoom > 20 && zoom < 100) {
-        zoom = 11
-    } else if (zoom > 100 && zoom < 1000) {
-        zoom = 10
-    } else if (zoom > 1000) {
-        zoom = 6.5
-    }
 
     return (
         <Container>
@@ -269,7 +243,7 @@ export function VehiclesDashboard(){
                     </div>
                     <div className="detailsBody">
                         <Section classSection="lastTravels" title="Últimas viagens">
-                            <h2 className="APIMAPS"><Map path={lastTravels} center={center} zoom={zoom} location={lastStartStop} markIcon={Origin}/></h2>
+                            <h2 className="APIMAPS"><Map paths={lastTravels} pathsColor={theme.COLORS.chart_green} markersInit={lastStart} markersFinal={lastStop} markersInitIcon={Origin} markersFinalIcon={Destiny}/></h2>
                             <div className="travelsFromAToB" >
                                 <div className="travelFromAToB">
                                     <div className="origin">

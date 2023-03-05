@@ -1,10 +1,8 @@
 import { Container, TableContainer, AlertContainer, Tab, APIMaps } from "./styles";
 
-
 import { useState } from "react";
 
 import Data from "../../services/Data.json"
-
 
 import Map from "../../components/MyMapComponent"
 
@@ -171,37 +169,7 @@ const vehiclesCoords = vehiclesLocations.map(loc => {
     return {lat: loc[0], lng: loc[1]}
 })
 
-const center = {lat: coords[Math.floor(coords.length/2)].coord[0], lng: coords[Math.floor(coords.length/2)].coord[1]}
-
-const centerVehicles = {lat: vehiclesLocations[Math.floor(vehiclesLocations.length/2)][0], lng: vehiclesLocations[Math.floor(vehiclesLocations.length/2)][1]}
-
-let zoom1 = Math.abs(coords[coords.length-1].coord[0]-coords[0].coord[0])*1000
-
-if (zoom1 < 13) {
-    zoom1 = 13
-} else if (zoom1 > 20 && zoom1 < 100) {
-    zoom1 = 12
-} else if (zoom1 > 100 && zoom1 < 1000) {
-    zoom1 = 10
-} else if (zoom1 > 1000) {
-    zoom1 = 6.5
-}
-
-let zoom2 = Math.abs(vehiclesLocations[vehiclesLocations.length-1][0]-vehiclesLocations[0][0])*1000
-
-if (zoom2 < 13) {
-    zoom2 = 14
-} else if (zoom2 > 20 && zoom2 < 100) {
-    zoom2 = 12
-} else if (zoom2 > 100 && zoom2 < 1000) {
-    zoom2 = 10
-} else if (zoom2 > 1000) {
-    zoom2 = 6.5
-}
-
-
 export function StartDashboard(){
-    let alertsCounter = []
     let alerts
     let alertsTravels
     let dateTimeHandler
@@ -212,7 +180,7 @@ export function StartDashboard(){
 
     const [activeTab, setActiveTab] = useState(tabTitle[0]);
 
-    const [activeAlert, setActiveAlert] = useState([alertsCounter[0]])
+    const [activeAlert, setActiveAlert] = useState([])
 
     function handleAlertsSelected(counter){
         const alreadySelected = activeAlert.includes(counter);
@@ -290,8 +258,8 @@ export function StartDashboard(){
                             },
                         ]} />
                     </Section>
-                    <APIMaps isActive={"Alertas" === activeTab}><Map center={center} location={alertsCoords} zoom={zoom1} markIcon={Pin}/></APIMaps>
-                    <APIMaps isActive={"Veículos" === activeTab}><Map center={centerVehicles} location={vehiclesCoords} zoom={zoom2} markIcon={Vehicle}/></APIMaps>
+                    <APIMaps isActive={"Alertas" === activeTab}><Map markersInit={alertsCoords} markersInitIcon={Pin}/></APIMaps>
+                    <APIMaps isActive={"Veículos" === activeTab}><Map markersInit={vehiclesCoords} markersInitIcon={Vehicle}/></APIMaps>
                 </div>
                 <div className="table">
                         <div className="header">
