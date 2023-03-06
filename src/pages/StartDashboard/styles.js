@@ -7,12 +7,12 @@ export const Tab = styled.div`
 export const APIMaps = styled.div`
     display: ${({isActive}) => isActive ? "auto" : "none" };
         margin-top: 2rem;
-        width: 72.5rem;
+        width: 100%;
         height: 37.7rem;
 `;
 
 export const Container = styled.div`
-    width: 144rem;
+    width: 100%;
     height: 100vh;
     
     display: grid;
@@ -26,11 +26,11 @@ export const Container = styled.div`
     main {
         grid-area: main;
         width: 100%;
-        padding: 0 3.2rem 3.2rem;
+        padding: 0 3.2rem 1.8rem;
 
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        gap: 6.4rem;
 
         .indicators {
             display: flex;
@@ -40,10 +40,15 @@ export const Container = styled.div`
 
         .dashboard {
             margin-top: .5rem;
+            width: 100%;
 
             > section:first-child{
-                margin-bottom: 5.9rem;
+                margin-bottom: 3.5rem;
             }
+        }
+
+        .table {
+            width: 100%;
         }
 
         .header {
@@ -80,17 +85,30 @@ export const Container = styled.div`
 
         
     }
+
+    @media (max-width: 1200px) {
+        main {
+            flex-direction: column;
+
+            .dashboard {
+                section:first-child{
+                    margin-bottom: 3.9rem;
+                }
+            }
+        }
+    }
 `;
 
 export const TableContainer = styled.div`
     display: ${({isActive}) => isActive ? "auto" : "none"};
+    width: 100%;
 
 
     .vehicles {
 
             overflow: auto;
 
-            width: 58.7rem;
+            width: 100%;
             
             border: .1rem solid ${({theme}) => theme.COLORS.light_100};
             background: ${({theme}) => theme.COLORS.light_100};
@@ -143,8 +161,10 @@ export const TableContainer = styled.div`
 
             td {
                 background: transparent;
+                width: 100%;
+                white-space: nowrap;
+                padding: 1.6rem 2.4rem;
                 div {
-                    padding: 1.6rem 2.4rem;
                     display: flex;
                     flex-direction: column;
                 }
@@ -153,20 +173,11 @@ export const TableContainer = styled.div`
                     color: ${({theme}) => theme.COLORS.secondary};
                 }
             }
-
-            td:first-child{
-                width: 17.6rem;
-            }
-
-            td:last-child{
-                width: 15.3rem;
-                padding: 1.6rem;
-            }
         }
 
         .alerts {
             overflow: auto;
-            width: 58.7rem;
+            width: 100%;
             height: 79.7rem;
             
             border: .1rem solid ${({theme}) => theme.COLORS.light_100};
@@ -206,6 +217,7 @@ export const TableContainer = styled.div`
                 font-weight: 400;
                 font-size: 12px;
                 line-height: 150%;
+                white-space: nowrap;
 
                 color: ${({theme}) => theme.COLORS.table_dark_200};
             }
@@ -227,6 +239,7 @@ export const AlertContainer = styled.div`
     padding: .8rem;
     background: ${({theme}) => theme.COLORS.table_b};
     border-radius: .4rem;
+    width: 100%;
     
     .alertHead {
         display: flex;

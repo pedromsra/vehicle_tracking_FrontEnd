@@ -18,14 +18,14 @@ export function Header() {
         <Container>
             <img src={ComigoLogo} alt="" />
 
-            <div>
+            <div className="navigation">
                 <Link to="/" ><ButtonText title="Início" isActive /></Link>
                 <ButtonText title="Motoristas" isActive />
                 <Link to="/vehiclesDashboard" ><ButtonText title="Veículos" isActive /></Link>
                 <Link to="/locations"><ButtonText title="Localização" isActive /></Link>
                 <ButtonText title="Financeiro" isActive />
             </div>
-            <div>
+            <div className="buttons">
                 <Button icon={Reload} isActive />
                 <div className="rectangle" />
                 <Button icon={Chat} isActive />

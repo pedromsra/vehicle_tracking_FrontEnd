@@ -12,5 +12,6 @@ export const Container = styled.section`
         margin-bottom: 3.2rem;
 
         color: ${({ theme }) => theme.COLORS.dark_100};
+
     }
 `;

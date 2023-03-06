@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.button`
-    min-width: 16.9rem;
+    width: 100%;
     background-color: ${({theme}) => theme.COLORS.light_100};
     padding: 2.4rem 1.6rem;
 
@@ -40,7 +40,6 @@ export const Container = styled.button`
             > img {
                 width: .8rem;
                 height: .96rem;
-                
             }
         }
         
@@ -93,10 +92,15 @@ export const Container = styled.button`
     }
 
     span {
-        width: 2.4rem;
-        height: 2.4rem;
+        width: clamp(2.4rem, .8rem + 1.5vw, 4.5rem);
+        height: clamp(2.4rem, .8rem + 1.5vw, 4.5rem);
         display: grid;
         place-items: center;
+
+        > img {
+            width: clamp(2.4rem, .8rem + 1.5vw, 4.5rem);
+            height: clamp(2.4rem, .8rem + 1.5vw, 4.5rem);
+        }
     }
 
     &:disabled {

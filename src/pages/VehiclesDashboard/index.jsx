@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 import Data from "../../services/Data.json"
 
-import { myPathLength } from "../../services/distancy";
+import { myPathLength } from "../../services/distance";
 
 import Map from "../../components/MyMapComponent"
 
@@ -139,7 +139,6 @@ const addressesGeo = [
 ]
 
 export function VehiclesDashboard(){
-    let count = 0
     
     let lastTravels
     let lastStart
@@ -232,6 +231,7 @@ export function VehiclesDashboard(){
                         ))}
                     </div>
                     <div className="borderRight" />
+                    <div className="borderBottom" />
                 </div>
                 <div className="vehicleDetails">
                     <div className="detailsTitle">

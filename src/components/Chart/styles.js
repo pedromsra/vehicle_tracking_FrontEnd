@@ -9,7 +9,7 @@ export const Container = styled.div`
     width: 100%;
 
     .myChart {
-        width: 72.5rem;
+        width: 100%;
         height: 3.2rem;
 
         div {
@@ -20,10 +20,10 @@ export const Container = styled.div`
     }
 
     .legend {
-        width: 43.7rem;
+        width: 80%;
         display: grid;
         grid-template-rows: 1fr 1fr;
-        grid-template-columns: 9.5rem auto 16.7rem;
+        grid-template-columns: auto;
         grid-template-areas: 
         "A C E"
         "B D F"        

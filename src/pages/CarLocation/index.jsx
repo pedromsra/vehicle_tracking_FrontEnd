@@ -8,7 +8,7 @@ import { useState } from "react";
 
 import Data from "../../services/Data.json"
 
-import { myPathLength } from "../../services/distancy";
+import { myPathLength } from "../../services/distance";
 
 import { Header } from "../../components/Header";
 import { Where } from "../../components/Where";

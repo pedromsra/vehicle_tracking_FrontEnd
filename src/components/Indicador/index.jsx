@@ -27,7 +27,7 @@ export function Indicador({ data, ...rest }) {
         >
             {
                 indicatorData.map((dat) => (
-                    <div key={String(dat.keyCount)}>
+                    <div className="infoBoxContainer" key={String(dat.keyCount)}>
                         <InfoBox title={dat.quantity} description={dat.title} icon={dat.icon} situation={dat.variation} background={dat.BackgroundColor} fontColorSituation={dat.fontColorIndicator} indicator={dat.Indication} />
                     </div>
                 ))

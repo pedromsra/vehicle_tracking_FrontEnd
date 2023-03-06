@@ -12,7 +12,6 @@ export const Container = styled.div`
     "main"
     ;
 
-
     main {
         grid-area: main;
         width: 100%;
@@ -79,12 +78,14 @@ export const Container = styled.div`
         }
 
         .vehiclesDetails {
+            width: 100%;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
         }
 
         .detailsTitle {
+            width: 100%;
             display: flex;
             flex-direction: row;
             gap: .6rem;
@@ -99,6 +100,7 @@ export const Container = styled.div`
         }
 
         .detailsBody {
+            width: 100%;
             display: grid;
             grid-template-areas:
                 "lastTravels report"
@@ -107,14 +109,17 @@ export const Container = styled.div`
             gap: 4rem;
 
             .lastTravels {
+                width: 100%;
                 grid-area: lastTravels;
             }
 
             .report {
+                width: 100%;
                 grid-area: report;
             }
 
             .allTravels {
+                width: 100%;
                 position: relative;
                 grid-area: allTravels;
 
@@ -129,7 +134,7 @@ export const Container = styled.div`
 
 
         .APIMAPS {
-            width: 472px;
+            width: 100%;
             height: 180px;
             margin-bottom: 1.6rem;
         }
@@ -150,7 +155,7 @@ export const Container = styled.div`
         }
 
         .travelsFromAToB {
-            width: 45.3rem;
+            width: 100%;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -185,10 +190,39 @@ export const Container = styled.div`
             }
         }
     }
+
+    @media (max-width: 1200px) {
+        main {
+            display: flex;
+                flex-direction: column;
+
+            .vehicles {
+                .borderRight {
+                    display: none;
+                }
+            }
+
+            .detailsBody{
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
+
+    @media (min-width: 1200px) {
+        main {
+            white-space: nowrap;
+            .vehicles {
+                .borderBottom {
+                    display: none;
+                }
+            }
+        }
+    }
 `;
 
 export const Table = styled.table`
-    width: 98.3rem;
+    width: 100%;
     border: 1px solid ${({theme}) => theme.COLORS.table_border};
     border-radius: .8rem;
 
@@ -201,15 +235,18 @@ export const Table = styled.table`
         letter-spacing: 0.05em;
         text-transform: uppercase;
 
+        width: 100%;
+
         height: 4rem;
-        padding: 1.2rem 2.4rem;
+        padding: 1.2rem clamp(.8rem, .5rem + .8vw, 2.4rem);
         text-align: start;
 
         color: ${({theme}) => theme.COLORS.table_dark_100};
-
+        background: ${({theme}) => theme.COLORS.table_b};
     }
 
     td {
+        width: 100%;
         font-family: 'Roboto';
         font-style: normal;
         font-weight: 400;
@@ -217,23 +254,19 @@ export const Table = styled.table`
         line-height: 150%;
 
         height: 8rem;
-        padding: 1.6rem 2.4rem;
+        padding: 1.6rem clamp(.8rem, .5rem + .8vw, 2.4rem);
         text-align: start;
         vertical-align: top;
 
         color: ${({theme}) => theme.COLORS.dark_100};
     }
 
-    th {
-        background: ${({theme}) => theme.COLORS.table_b};
-    }
-    
     tr {
+        width: 100%;
         background: ${({theme}) => theme.COLORS.table_a};
         border-radius: 0 0 .8rem .8rem;
 
         td:first-child{
-            width: 33.6rem;
             border-radius: 0 0 0 .8rem;
         }
 
@@ -241,10 +274,6 @@ export const Table = styled.table`
             border-radius: 0 0 .8rem 0;
             text-align: end;
             vertical-align: middle;
-        }
-
-        td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(5){
-            width: 12rem;
         }
 
         th:first-child{
@@ -258,7 +287,7 @@ export const Table = styled.table`
 `;
 
 export const Legend = styled.div`
-    width: 46.8rem;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 1.6rem;

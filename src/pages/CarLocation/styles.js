@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    width: 144rem;
-    height: 102.4rem;
+    width: 100%;
+    height: 100vh;
     
     display: grid;
     grid-template-rows: auto auto 1fr;
@@ -13,15 +13,15 @@ export const Container = styled.div`
     ;
 
     .APIMAPS {
-        width: 100.8rem;
-        height: 84.3rem;
+        width: 100%;
+        height: 100%;
         border-radius: 2rem;
     }
 
     main {
         grid-area: main;
         width: 100%;
-        padding: 0 3.2rem;
+        padding: 0 3.2rem 3.2rem;
 
         display: flex;
         flex-direction: row;
@@ -147,7 +147,7 @@ export const Container = styled.div`
 
     .travelsContainer {
         overflow: auto;
-        height: 59.5rem;
+        height: 56.2rem;
         min-width: 33.2rem;
         display: flex;
         flex-direction: column;

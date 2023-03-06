@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 export const Container = styled.button`
-    width: 33.2rem;
-    min-width: 16.9rem;
+    width: 100%;
+    min-width: 33.2rem;
     background-color: ${({theme, isActive}) => isActive ? theme.COLORS.light_100 : "transparent"};
     padding: 1.6rem 1.2rem 1.6rem 1.6rem;
     border: none;

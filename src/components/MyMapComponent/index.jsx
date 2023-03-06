@@ -18,11 +18,12 @@ const onLoadMarker = (marker) => {
     console.log('marker: ', marker)
 };
 
-function MyComponent({paths, pathsColor, markersInit, markersFinal, zoom, markersInitIcon, markersFinalIcon}) {
+function MyComponent({paths, pathsColor, markersInit, markersFinal, markersInitIcon, markersFinalIcon}) {
     let centerContainer = []
     let zoomMaxContainer = {lat: -90, lng: -180}
     let zoomMinContainer = {lat: 90, lng: 180}
     let zoomContainer
+
     
     paths && paths.forEach(path => {
         path.forEach(pat => {
@@ -58,21 +59,43 @@ function MyComponent({paths, pathsColor, markersInit, markersFinal, zoom, marker
         }
     })
 
-    zoomContainer = [zoomMaxContainer, zoomMinContainer]
+    markersFinal && markersFinal.forEach(mark => {
+        centerContainer.push(mark)
+        if(mark.lat < zoomMinContainer.lat){
+            zoomMinContainer.lat = mark.lat
+        }
+        if(mark.lat > zoomMaxContainer.lat){
+            zoomMaxContainer.lat = mark.lat
+        }
+        if(mark.lng < zoomMinContainer.lng){
+            zoomMinContainer.lng = mark.lng
+        }
+        if(mark.lng > zoomMaxContainer.lng){
+            zoomMaxContainer.lng = mark.lng
+        }
+    })
 
-    const myZoom = 40075/getPathLength(zoomContainer)
+    let myCenter;
+    let calczoom
 
-    var GLOBE_WIDTH = 256; // a constant in Google's map projection
-    var west = zoomMinContainer.lng;
-    var east = zoomMaxContainer.lng;
-    var angle = east - west;
-    if (angle < 0) {
-        angle += 360;
+    if(paths || markersFinal || markersInit) {
+        zoomContainer = [zoomMaxContainer, zoomMinContainer]
+    
+        const myZoom = 40075/getPathLength(zoomContainer)
+    
+        const GLOBE_WIDTH = 256; // a constant in Google's map projection
+        const west = zoomMinContainer.lng;
+        const east = zoomMaxContainer.lng;
+        let angle = east - west;
+        if (angle < 0) {
+            angle += 360;
+        }
+    
+        calczoom = (Math.log(((725+1008)/2) * 360 / angle / GLOBE_WIDTH) / Math.LN2)-3;
+    
+        const myCalculatedCenter = getCenter(centerContainer)
+        myCenter = {lat: myCalculatedCenter.latitude, lng: myCalculatedCenter.longitude}
     }
-    var calczoom = (Math.log(((725+1008)/2) * 360 / angle / GLOBE_WIDTH) / Math.LN2)-3;
-
-    const myCalculatedCenter = getCenter(centerContainer)
-    const myCenter = {lat: myCalculatedCenter.latitude, lng: myCalculatedCenter.longitude}
 
     const options = {
         strokeColor: pathsColor ? pathsColor : theme.COLORS.secondary,

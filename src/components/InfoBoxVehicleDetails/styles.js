@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-    min-width: 16.9rem;
+    width: 100%;
     background-color: ${({theme}) => theme.COLORS.light_100};
     padding: 0 1.2rem 1.6rem 1.6rem;
     
