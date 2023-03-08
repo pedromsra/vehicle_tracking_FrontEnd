@@ -2,6 +2,8 @@ import { Container, Table, Legend } from "./styles";
 
 import { useState, useEffect } from "react";
 
+import { useRef } from 'react';
+
 import Data from "../../services/Data.json"
 
 import { myPathLength } from "../../services/distance";
@@ -217,6 +219,8 @@ export function VehiclesDashboard(){
         }
     ]
 
+    const windowSize = useRef([window.innerWidth, window.innerHeight]);
+
     return (
         <Container>
             <Header />
@@ -304,7 +308,7 @@ export function VehiclesDashboard(){
                             </div>
                         </Section>
                         <Section classSection="allTravels" title="Todas as viagens">
-                            <Input classInput="input" placeholder="pesquisar" inputWidth="33.2rem" icon={Find} />
+                            <Input classInput="input" placeholder="pesquisar" icon={Find} />
                             <Table cellSpacing="0" >
                                 <thead>
                                     <tr>
@@ -313,7 +317,6 @@ export function VehiclesDashboard(){
                                         <th>Horário</th>
                                         <th>Distância</th>
                                         <th>Duração</th>
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -324,7 +327,6 @@ export function VehiclesDashboard(){
                                             <td>{dateTimeHandler[travel.id-1] && dateTimeHandler[travel.id-1].time}</td>
                                             <td>{(myPathLength(travelLength[travel.id-1])/1000).toFixed(1)} km</td>
                                             <td>45 min</td>
-                                            <td><a href="">Abrir no mapa</a></td>
                                         </tr>
                                     ))}
                                 </tbody>

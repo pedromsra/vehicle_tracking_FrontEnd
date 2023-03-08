@@ -1,5 +1,6 @@
 import { Container, TableContainer, AlertContainer, Tab, APIMaps } from "./styles";
 
+
 import { useState } from "react";
 
 import Data from "../../services/Data.json"
@@ -180,7 +181,7 @@ export function StartDashboard(){
 
     const [activeTab, setActiveTab] = useState(tabTitle[0]);
 
-    const [activeAlert, setActiveAlert] = useState([])
+    const [activeAlert, setActiveAlert] = useState([]);
 
     function handleAlertsSelected(counter){
         const alreadySelected = activeAlert.includes(counter);
@@ -195,9 +196,8 @@ export function StartDashboard(){
     return (
         <Container>
             <Header />
-
             <Where title="Dashboard" />
-            <main>
+            <main useid="main">
                 <div className="dashboard" >
                     <Section title="Indicadores" className="indicators" >
                         <Indicador data={[{

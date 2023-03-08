@@ -2,7 +2,7 @@
     "cars": [
         {
             "id": "1",
-            "plate": "RGM8F93",
+            "plate": "ABC1D23",
             "model": "Uno Drive 1.0",
             "commGPS": "02/03/2023 13:25",
             "commServer": "02/03/2023 13:25",
@@ -262,7 +262,7 @@
         },
         {
             "id": "2",
-            "plate": "HEX4934",
+            "plate": "EFG4H56",
             "model": "Uno Drive 1.0",
             "commGPS": "02/03/2023 13:25",
             "commServer": "02/03/2023 13:25",
@@ -521,7 +521,7 @@
         },
         {
             "id": "3",
-            "plate": "OVC5255",
+            "plate": "IJK7L89",
             "model": "Uno Drive 1.0",
             "commGPS": "02/03/2023 13:25",
             "commServer": "02/03/2023 13:25",

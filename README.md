@@ -1,28 +1,4 @@
-# GoTrack
-
-- [GoTrack](#gotrack)
-  - [Apresentation](#apresentation)
-  - [Primeiros passos](#primeiros-passos)
-  - [Páginas](#páginas)
-    - [Início](#início)
-    - [Veículos](#veículos)
-    - [Locations](#locations)
-    - [Profile](#profile)
-    - [New](#new)
-    - [Details](#details)
-  - [Componentes](#componentes)
-    - [Button](#button)
-    - [ButtonText](#buttontext)
-    - [Header](#header)
-    - [Input](#input)
-    - [Note](#note)
-    - [NoteItem](#noteitem)
-    - [Section](#section)
-    - [Tag](#tag)
-    - [TextArea](#textarea)
-
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
+# CarTrack
 
 ## Apresentation
 
@@ -63,31 +39,23 @@ Segue a imagens das páginas utilizadas nessa aplicação.
 
 ![](locations.gif)
 
-### Profile
-
-![](src/assets/readme/Profile.png)
-
-### New
-
-![](src/assets/readme/New.png)
-
-### Details
-
-![](src/assets/readme/Show.png)
-
 ## Componentes
 
 > A documentação dos componentes irá cubrir a utilização dos componentes, qualquer personalização deverá ser realizada no arquivo "/src/assets/"componente"/styles.js" para cores, tipos e dimensões personalizadas. 
 
 > No geral, os componentes recebem props como onClick = {...}, etc. 
 
+> Os componentes MyMapComponent e DistributedChart terão uma sessão de comentário para a integração das respectivas bibliotecas/API
+
+> Finalmente, terá uma sessão dentro de componentes voltada à explicação das bibliotecas geolib e geocode 
+
 ### Button
 
-- Descrição: Botão simples em caixa;
+- Descrição: Botão simples em caixa, aceita ícone;
 - Aplicação:
 
 ```html
-    <Button title="Meu botão" isActive = "false" />
+    <Button title="Meu botão" isActive = "false" icon={iconeCarro} />
 ```
 
 - Comentário:
@@ -96,11 +64,11 @@ Segue a imagens das páginas utilizadas nessa aplicação.
 
 ### ButtonText
 
-- Descrição: Texto clicável, com função de input ```type = button```;
+- Descrição: Texto clicável, com função de input ```type = button```, aceita ícone;
 - Aplicação:
 
 ```html
-    <ButtonText title="Meu botão" />
+    <ButtonText title="Meu botão" icon={iconeCarro} />
 ```
 
 - Comentário:
@@ -117,6 +85,17 @@ Segue a imagens das páginas utilizadas nessa aplicação.
 
 - Comentário: não é necessário props;
 
+### Where
+
+- Descrição: Abaixo da Navbar com demonstração de onde o usuário se encontra na aplicação, normalmente mostra um "ícone de casa" > "local";
+- Aplicação:
+
+```html
+    <Where title="local" />
+```
+
+- Comentário: unico props necessário é o título da página;
+
 ### Input
 
 - Descrição: input html usado para type = text, permite adicionar icone;
@@ -128,25 +107,16 @@ Segue a imagens das páginas utilizadas nessa aplicação.
 
 - Comentários: é essencialmente um ```<input />```;
 
-### Note
+### DateInput
 
-- Descrição: cria um resumo de uma nota a ser exibida na página Locations;
-- Aplicação:
-
-```html
-    <Note key={String(note.id)} data={note} />
-```
-
-- Comentário: note é um objeto que contem uma nota com seu respectivo título e tags, que serão exibido no Note a ser criado;
-
-### NoteItem
-
-- Descrição: Link ou Tag criado ou a ser criado de uma nota, com sua aparencia mudando de acordo com sua condição de novo ou saldo;
-- Aplicação:
+- Descrição: input html usado para type = text, permite adicionar icone;
+- Aplicação: #Essencialmente igual ao Input, porém com modificações de estilização
 
 ```html
-    <NoteItem isNew placeholder = "Novo marcador" />
+    <Input icon = {myIcon} placeholder="My input" type = "text" />
 ```
+
+- Comentários: é essencialmente um ```<input />```;
 
 ### Section
 
@@ -163,22 +133,39 @@ Segue a imagens das páginas utilizadas nessa aplicação.
   - o title irá definir o nome que irá aparecer;
   - O childrens é a informação que pode ser adicionada dentro da Section, como os Links ou Tags a serem salvos;
 
-### Tag
+### InfoBox
 
-- Descrição: Tag que irá aparecer na página detalhada da nota e no resumo da nota, na página Locations;
-- Aplicação:
+### InfoBoxVehicle
 
-```html
-    <Tag key = {tag.id} title={tag.name} />
-```
+### InfoBoxVehicleDetails
 
-- Comentário: A props key é obrigatória, uma vez que haja mais de uma Tag para uma Nota.
+### Chart
 
-### TextArea
+### DistributedChart
 
-- Descrição: Input text área;
-- Aplicação:
+- links relacionados;
+- integração com api rechart;
+- primeiros passos com rechart;
+- configuração do gráfico;
 
-```html
-    <TextArea placeholder = "Observações" />
-```
+### Indicador
+
+### MyMapComponent
+
+- links relacionados;
+- integração com api google;
+- primeiros passos react-google-maps;
+- Polyline;
+- Markers;
+
+## Serviços
+
+### Geolib
+
+- links relacionados;
+- explicação do uso;
+
+### Geocode
+
+- links relacionados;
+- explicação do uso;

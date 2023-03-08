@@ -8,7 +8,7 @@ import { Routes } from "./routes";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	
-		<ThemeProvider theme = {theme}>
+		<ThemeProvider theme = {theme}  >
 			<GlobalStyles />
 			<Routes />
 		</ThemeProvider>

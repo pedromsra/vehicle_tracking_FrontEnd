@@ -15,7 +15,7 @@ export const Container = styled.div`
     main {
         grid-area: main;
         width: 100%;
-        padding: 0 3.2rem;
+        padding: 0 clamp(1rem, .5rem + 2vw, 3.2rem) 2rem;
 
         display: flex;
         flex-direction: row;
@@ -211,7 +211,7 @@ export const Container = styled.div`
 
     @media (min-width: 1200px) {
         main {
-            white-space: nowrap;
+            
             .vehicles {
                 .borderBottom {
                     display: none;
@@ -268,12 +268,6 @@ export const Table = styled.table`
 
         td:first-child{
             border-radius: 0 0 0 .8rem;
-        }
-
-        td:last-child{
-            border-radius: 0 0 .8rem 0;
-            text-align: end;
-            vertical-align: middle;
         }
 
         th:first-child{
