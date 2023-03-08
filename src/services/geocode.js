@@ -1,6 +1,8 @@
+const GMAPS_KEY = "Por favor, coloque sua chave aqui"
+
 import Geocode from "react-geocode";
 
-Geocode.setApiKey("AIzaSyBq0hGuUOIkahRznQojlHs2V_kCLaobxJ0");
+Geocode.setApiKey(GMAPS_KEY);
 Geocode.setLanguage("pt-br");
 Geocode.setLocationType("APPROXIMATE");
 Geocode.enableDebug();

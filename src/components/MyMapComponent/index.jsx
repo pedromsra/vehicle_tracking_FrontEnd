@@ -1,4 +1,4 @@
-const GMAPS_KEY = "PLEASE, PUT YOUR GOOGLE MAPS KEY HERE"
+const GMAPS_KEY = "Por favor, coloque sua chave aqui"
 
 import React from 'react'
 import { GoogleMap, LoadScript, Polyline, Marker } from '@react-google-maps/api';
