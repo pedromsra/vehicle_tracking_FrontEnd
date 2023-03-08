@@ -15,6 +15,8 @@ Fronted para aplicação WEB para rastreamento de veículos
 
 - [Diretorio do Gihub](https://github.com/pedromsra/rocketnotes_frontend);
 - Seguir os passos do link [Clonar um repositório](https://github.com/pedromsra/vehicle_tracking_FrontEnd.git) para realizar o **git clone** da aplicação;
+- Obtenha uma chave para utilização da API Google Maps [Developers Google API](https://developers.google.com/maps/premium/apikey/maps-javascript-apikey?hl=pt-br#:~:text=Acesse%20a%20p%C3%A1gina%20Plataforma%20Google%20Maps%20%3E%20Credenciais.&text=Na%20p%C3%A1gina%20Credenciais%2C%20clique%20em,Clique%20em%20Fechar.):
+  - Vá até o arquivo ./src/components/MyMapsComponent/index.jsx, verifique a linha 001 de código: ```const GMAPS_KEY = "Por favor, coloque sua chave aqui"``` e coloque sua API KEY do google maps no lugar de ```Por favor, coloque sua chave aqui```;
 - Para os fins desse projeto será considerado que o [servidor local](http://localhost:5173) (padrão do vite);
 - Abrir o terminal e digitar:
   - `$ cd /local_da_pasta_onde_a_aplicação_foi_salva`

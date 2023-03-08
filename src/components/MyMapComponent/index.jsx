@@ -1,4 +1,4 @@
-const GOOGLE_MAPS_KEY_HERE = "PLEASE, PUT YOUR GOOGLE MAPS KEY HERE"
+const GMAPS_KEY = "PLEASE, PUT YOUR GOOGLE MAPS KEY HERE"
 
 import React from 'react'
 import { GoogleMap, LoadScript, Polyline, Marker } from '@react-google-maps/api';
@@ -119,7 +119,7 @@ function MyComponent({paths, pathsColor, markersInit, markersFinal, markersInitI
 
     return (
     <LoadScript
-        googleMapsApiKey={GOOGLE_MAPS_KEY_HERE}
+        googleMapsApiKey={GMAPS_KEY}
     >
         <GoogleMap
         mapContainerStyle={containerStyle}
